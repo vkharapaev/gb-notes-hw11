@@ -1,0 +1,18 @@
+<resources>
+    <string name="app_name">Notes</string>
+    <string name="title">Title</string>
+    <string name="description">Description</string>
+    <string name="create_date">Create date</string>
+    <string name="pick_date">Pick Date</string>
+    <string name="fragment_navigation">Fragment Navigation</string>
+    <string name="navigation_drawer_open">Navigation drawer open</string>
+    <string name="navigation_drawer_close">Navigation drawer close</string>
+    <string name="about">About</string>
+    <string name="author">by HeadmostLab</string>
+    <string name="share">Share</string>
+    <string name="user_name">Vladimir</string>
+    <string name="save">Save</string>
+    <string name="delete">Delete</string>
+    <string name="msg_success">Success</string>
+    <string name="msg_failure">Failure</string>
+</resources>
