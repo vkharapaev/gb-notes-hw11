@@ -1,5 +1,6 @@
 package com.headmostlab.notes.ui.note;
 
+import android.app.AlertDialog;
 import android.content.Intent;
 import android.content.res.Configuration;
 import android.os.Bundle;
@@ -107,20 +108,7 @@ public class NoteFragment extends Fragment {
             binding.deleteNoteButton.setVisibility(View.GONE);
         } else {
             setHasOptionsMenu(true);
-            binding.deleteNoteButton.setOnClickListener(it -> viewModel.deleteNote().observe(getViewLifecycleOwner(), event ->
-                    {
-                        Integer content = event.getContentIfNotHandled();
-                        if (content != null) {
-                            Toast.makeText(requireActivity(), getString(content), Toast.LENGTH_SHORT).show();
-                            deselectNote();
-                            if (isPortrait) {
-                                getParentFragmentManager().popBackStack();
-                            } else {
-                                getParentFragmentManager().beginTransaction().remove(this).commit();
-                            }
-                        }
-                    }
-            ));
+            binding.deleteNoteButton.setOnClickListener(it -> deleteNoteWithConfirmation());
         }
 
         binding.saveNoteButton.setOnClickListener(it -> {
@@ -147,6 +135,32 @@ public class NoteFragment extends Fragment {
 
         viewModel.getSelectedNote().observe(getViewLifecycleOwner(), this::show);
         viewModel.getNoteToShare().observe(getViewLifecycleOwner(), this::share);
+    }
+
+    private void deleteNoteWithConfirmation() {
+        new AlertDialog.Builder(requireActivity())
+                .setTitle(R.string.note_delete_warning_message)
+                .setPositiveButton(R.string.btn_ok, (dialog, which) -> deleteNote())
+                .setNegativeButton(R.string.btn_cancel, (dialog, which) -> {
+                })
+                .create().show();
+    }
+
+    private void deleteNote() {
+        viewModel.deleteNote().observe(getViewLifecycleOwner(), event ->
+                {
+                    Integer content = event.getContentIfNotHandled();
+                    if (content != null) {
+                        Toast.makeText(requireActivity(), getString(content), Toast.LENGTH_SHORT).show();
+                        deselectNote();
+                        if (isPortrait) {
+                            getParentFragmentManager().popBackStack();
+                        } else {
+                            getParentFragmentManager().beginTransaction().remove(this).commit();
+                        }
+                    }
+                }
+        );
     }
 
     public void show(Note note) {

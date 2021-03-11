@@ -15,4 +15,7 @@
     <string name="delete">Delete</string>
     <string name="msg_success">Success</string>
     <string name="msg_failure">Failure</string>
+    <string name="note_delete_warning_message">Do you really want to delete the note?</string>
+    <string name="btn_ok">OK</string>
+    <string name="btn_cancel">Cancel</string>
 </resources>
